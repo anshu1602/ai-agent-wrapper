@@ -35,11 +35,11 @@ RETELL_API_KEY=your_retell_api_key
 ```bash
 python app.py
 ```
-The API will be available at http://127.0.0.1:5000.
+The API will be available at http://127.0.0.1:5000/create-agent.
 
 ## API Documentation
 
-### POST /create-agent
+### POST 
 
 #### Request Body
 - `provider`: String (required) - "vapi" or "retell"
