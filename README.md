@@ -1,117 +1,64 @@
-AI Agent Wrapper API
+# AI Agent Wrapper API
 
 This project provides a common wrapper API around Vapi and Retell AI's create-agent APIs. It allows users to call either Vapi or Retell API using a single endpoint with a standardized set of parameters.
 
-Setup Instructions
+## Setup Instructions
 
-
-
-
-
-Clone the Repository:
-
-https://github.com/anshu1602/ai-agent-wrapper.git
+### 1. Clone the Repository
+```bash
+git clone https://github.com/anshu1602/ai-agent-wrapper.git
 cd ai-agent-wrapper
+```
 
-
-
-Create a Virtual Environment and Install Dependencies:
-
+### 2. Create a Virtual Environment and Install Dependencies
+```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
+```
 
-
-
-Set Environment Variables:
-
-
-
-
-
-Copy .env.example to .env:
-
+### 3. Set Environment Variables
+Copy `.env.example` to `.env`:
+```bash
 cp .env.example .env
+```
 
-
-
-Edit .env and add your Vapi and Retell API keys:
-
+Edit `.env` and add your Vapi and Retell API keys:
+```text
 VAPI_BASE_URL=https://api.vapi.ai/
 RETELL_BASE_URL=https://api.retellai.com/
 VAPI_API_KEY=your_vapi_api_key
 RETELL_API_KEY=your_retell_api_key
+```
 
-
-
-Run the Application:
-
+### 4. Run the Application
+```bash
 python app.py
-
+```
 The API will be available at http://127.0.0.1:5000.
 
-API Endpoint
+## API Documentation
 
-POST /create-agent
+### POST /create-agent
 
-Request Body
+#### Request Body
+- `provider`: String (required) - "vapi" or "retell"
+- `params`: Object (required)
+  - `name`: String (required) - Agent name
+  - `model`: Object (required) - Model configuration
+    - For Vapi:
+      - `provider`: String (e.g., "openai", default: "openai")
+      - `model`: String (e.g., "gpt-4", default: "gpt-4")
+    - For Retell:
+      - `type`: String (e.g., "retell-llm", default: "retell-llm")
+      - `llm_id`: String (e.g., "llm_d16e07ac75c77c2101412f199ce5")
+  - `voice`: String (required) - Voice identifier
+  - `voice_provider`: String (optional) - Voice provider (default: "11labs")
+  - `webhook_url`: String (optional) - Webhook URL
+  - `instructions`: String (optional) - Instructions for the agent
 
-
-
-
-
-provider: String (required) - "vapi" or "retell".
-
-
-
-params: Object (required)
-
-
-
-
-
-name: String (required) - Agent name.
-
-
-
-model: Object (required) - Model configuration.
-
-
-
-
-
-provider: String (for Vapi, e.g., "openai", default: "openai").
-
-
-
-model: String (for Vapi, e.g., "gpt-4", default: "gpt-4").
-
-
-
-type: String (for Retell, e.g., "retell-llm", default: "retell-llm").
-
-
-
-llm_id: String (for Retell, e.g., "llm_d16e07ac75c77c2101412f199ce5").
-
-
-
-voice: String (required) - Voice identifier (e.g., "21m00Tcm4TlvDq8ikWAM" for Vapi, "11labs-Adrian" for Retell).
-
-
-
-voice_provider: String (optional) - Voice provider (e.g., "11labs", default: "11labs").
-
-
-
-webhook_url: String (optional) - Webhook URL.
-
-
-
-instructions: String (optional) - Instructions for the agent (maps to Vapi's firstMessage and Retell's system_prompt).
-
-Example Request for Vapi
-
+#### Example Request (Vapi)
+```json
 {
     "provider": "vapi",
     "params": {
@@ -126,9 +73,10 @@ Example Request for Vapi
         "instructions": "Be helpful"
     }
 }
+```
 
-Example Response for Vapi
-
+#### Example Response (Vapi)
+```json
 {
     "agent_id": "b9b0292b-2f05-4439-92d6-638ba2752ce1",
     "name": "Test Agent",
@@ -150,9 +98,10 @@ Example Response for Vapi
         "webhook_url": "https://example.com/webhook"
     }
 }
+```
 
-Example Request for Retell
-
+#### Example Request (Retell)
+```json
 {
     "provider": "retell",
     "params": {
@@ -167,9 +116,10 @@ Example Request for Retell
         "instructions": "Be helpful"
     }
 }
+```
 
-Example Response for Retell
-
+#### Example Response (Retell)
+```json
 {
     "agent_id": "agent_e9fe25266e95fcdb228bc8a65d",
     "name": "Test Agent",
@@ -191,3 +141,5 @@ Example Response for Retell
         "is_published": false
     }
 }
+``` 
+
